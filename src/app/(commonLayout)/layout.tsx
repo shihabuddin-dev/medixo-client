@@ -1,8 +1,15 @@
-import LandingLayout from "@/components/layouts/LandingLayout";
+import Footer from "@/components/shared/Footer";
+import Navbar from "@/components/shared/Navbar";
 import ChildrenI from "@/define/interfaces/childrenI";
 
-const Layout = ({ children }: ChildrenI) => {
-  return <LandingLayout>{children}</LandingLayout>;
+const LandingLayout = ({ children }: ChildrenI) => {
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen">{children}</main>
+      <Footer />
+    </>
+  );
 };
 
-export default Layout;
+export default LandingLayout;

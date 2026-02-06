@@ -1,13 +1,17 @@
-// import { Route } from "@/types";
+import { Route } from "@/define/types";
 
-// export const adminRoutes: Route[] = [
-//   {
-//     title: "User Management",
-//     items: [
-//       {
-//         title: "Analytics",
-//         url: "/analytics",
-//       },
-//     ],
-//   },
-// ];
+export const adminRoutes: Route[] = [
+  {
+    title: "Admin Management",
+    items: [
+      {
+        title: "Analytics",
+        url: "/analytics",
+      },
+      {
+        title: "Analytics",
+        url: "/analytics",
+      },
+    ],
+  },
+];
