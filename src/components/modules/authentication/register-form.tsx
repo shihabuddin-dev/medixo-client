@@ -21,10 +21,13 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
+import { Roles } from "@/constants/roles";
+
 const formSchema = z.object({
   name: z.string().min(1, "This field is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
+  role: z.enum([Roles.customer, Roles.seller]),
 });
 
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
@@ -42,6 +45,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
       name: "",
       email: "",
       password: "",
+      role: Roles.customer,
     },
     validators: {
       onSubmit: formSchema,
@@ -142,6 +146,30 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                     {isInvalid && (
                       <FieldError errors={field.state.meta.errors} />
                     )}
+                  </Field>
+                );
+              }}
+            />
+            <form.Field
+              name="role"
+              children={(field) => {
+                return (
+                  <Field>
+                    <FieldLabel htmlFor={field.name}>Join as</FieldLabel>
+                    <select
+                      id={field.name}
+                      name={field.name}
+                      value={field.state.value}
+                      onChange={(e) => field.handleChange(e.target.value)}
+                      className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E')] bg-[length:1.2em_1.2em] bg-[right_0.5rem_center] bg-no-repeat"
+                    >
+                      <option value={Roles.customer}>
+                        Customer (I want to buy)
+                      </option>
+                      <option value={Roles.seller}>
+                        Seller (I want to sell)
+                      </option>
+                    </select>
                   </Field>
                 );
               }}

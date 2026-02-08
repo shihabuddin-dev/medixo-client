@@ -11,7 +11,7 @@ import { BlogPost } from "@/types";
 
 export default function HistoryTable({ posts }: { posts: BlogPost[] }) {
   return (
-    <div className="border rounded-md">
+    <div className="border rounded-md overflow-hidden bg-white/70 dark:bg-black/20 backdrop-blur-md dark:border-white/10">
       <Table>
         <TableHeader>
           <TableRow>

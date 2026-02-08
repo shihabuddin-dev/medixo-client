@@ -1,0 +1,12 @@
+src/app/(dashboardLayout)/@customer/dashboard/orders/[id]/page.tsx(17,46): error TS2339: Property 'getOrderDetails' does not exist on type '{ createOrder: (orderData: { medicineId: string; quantity: number; shippingAddress: string; }) => Promise<{ data: any; err: { message: any; } | null; }>; getMyOrders: () => Promise<{ data: any; err: null; } | { ...; }>; }'.
+src/components/layout/LandingLayout.tsx(2,8): error TS2613: Module '"E:/shihab/next-level/00 Assingment/asg-4/part-2/medixo-client/src/components/shared/Navbar"' has no default export. Did you mean to use 'import { Navbar } from "E:/shihab/next-level/00 Assingment/asg-4/part-2/medixo-client/src/components/shared/Navbar"' instead?
+src/components/modules/homepage/BlogCard.tsx(13,26): error TS2307: Cannot find module '@/types' or its corresponding type declarations.
+src/components/modules/homepage/BlogCard.tsx(45,41): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+src/components/modules/homepage/BlogCard.tsx(45,46): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/modules/user/createBlog/CreateBlogFormClient.tsx(3,32): error TS2307: Cannot find module '@/actions/blog.action' or its corresponding type declarations.
+src/components/modules/user/createBlog/CreateBlogFormServer.tsx(14,25): error TS2305: Module '"next/cache"' has no exported member 'm'.
+src/components/modules/user/history/HistoryTable.tsx(9,8): error TS2307: Cannot find module '@/components/ui/table' or its corresponding type declarations.
+src/components/modules/user/history/HistoryTable.tsx(10,26): error TS2307: Cannot find module '@/types' or its corresponding type declarations.
+src/components/modules/user/history/HistoryTable.tsx(48,38): error TS7006: Parameter 'tag' implicitly has an 'any' type.
+src/components/modules/user/history/HistoryTable.tsx(48,43): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/ui/tabs.tsx(4,32): error TS2307: Cannot find module '@radix-ui/react-tabs' or its corresponding type declarations.

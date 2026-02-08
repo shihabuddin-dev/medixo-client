@@ -59,20 +59,20 @@ const Footer = () => {
 
   return (
     <div
-      className="relative h-full sm:pt-14 pt-8 bg-[#f7f7f7] text-black"
+      className="relative h-full sm:pt-14 pt-8 bg-[#f7f7f7] dark:bg-black/50 backdrop-blur-md text-black dark:text-gray-100"
       ref={container}
     >
-      <div className="sm:container  px-4 mx-auto">
+      <div className="sm:container px-4 mx-auto">
         <div className="md:flex justify-between w-full">
           <div>
             <h1 className="md:text-4xl text-2xl font-semibold">
               Let&lsquo;s do great work together
             </h1>
             <div className="pt-2 pb-6 md:w-99  ">
-              <p className="md:text-2xl text-xl  py-4">
+              <p className="md:text-2xl text-xl py-4">
                 Sign up for our newsletter*
               </p>
-              <div className=" hover-button relative bg-black flex justify-between items-center border-2 overflow-hidden  border-black rounded-full  text-white hover:text-black md:text-2xl">
+              <div className="hover-button relative bg-black dark:bg-white/10 flex justify-between items-center border-2 overflow-hidden border-black dark:border-white/10 rounded-md text-white dark:text-gray-100 md:text-2xl">
                 <form
                   onSubmit={(e) => handleNewsLetterData(e)}
                   className="relative z-2 grid grid-cols-6  w-full h-full"
@@ -109,10 +109,10 @@ const Footer = () => {
           </div>
           <div className="flex gap-10">
             <ul>
-              <li className="text-2xl pb-2 text-black font-semibold">
+              <li className="text-2xl pb-2 text-black dark:text-gray-100 font-semibold">
                 SITEMAP
               </li>
-              <li className="text-xl font-medium">
+              <li className="text-xl font-medium text-gray-700 dark:text-gray-400">
                 <Link href="/">Home</Link>
               </li>
               <li className="text-xl font-medium">
@@ -133,8 +133,10 @@ const Footer = () => {
               </li>
             </ul>
             <ul>
-              <li className="text-2xl pb-2 text-black font-semibold">SOCIAL</li>
-              <li className="text-xl font-medium">
+              <li className="text-2xl pb-2 text-black dark:text-gray-100 font-semibold">
+                SOCIAL
+              </li>
+              <li className="text-xl font-medium text-gray-700 dark:text-gray-400">
                 <a
                   href="https://www.linkedin.com/company/next-codez/"
                   target="_blank"
