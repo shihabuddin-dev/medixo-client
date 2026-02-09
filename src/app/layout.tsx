@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 import { CartProvider } from "@/providers/CartProvider";
+import { AuthProvider } from "@/providers/SessionProvider";
 
 export const metadata: Metadata = {
   title: "Medixo - Your Trusted Online Pharmacy",
@@ -37,10 +38,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CartProvider>
-            {children}
-            <Toaster richColors />
-          </CartProvider>
+          <AuthProvider>
+            <CartProvider>
+              {children}
+              <Toaster richColors />
+            </CartProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

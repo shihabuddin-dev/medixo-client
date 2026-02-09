@@ -2,6 +2,8 @@ import React from "react";
 import { ShopFilters } from "@/components/modules/shop/ShopFilters";
 import { ProductCard } from "@/components/modules/shop/ProductCard";
 import { adminService } from "@/services/admin.service";
+import SectionHeader from "@/components/shared/SectionHeader";
+import Link from "next/link";
 
 export default async function ShopPage({
   searchParams,
@@ -18,22 +20,14 @@ export default async function ShopPage({
   const { data: categories } = await adminService.getAllCategories();
 
   return (
-    <div className="bg-[#FAFAFA] dark:bg-background min-h-screen pt-24 pb-32 transition-colors duration-300">
-      <div className="container mx-auto px-4">
-        {/* Page Header */}
-        <div className="space-y-4 mb-16 text-center lg:text-left">
-          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-primary">
-            Medixo Pharmacy
-          </h2>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-tight">
-            Explore Our{" "}
-            <span className="text-primary italic text-shadow-sm">Catalog.</span>
-          </h1>
-          <p className="text-muted-foreground dark:text-gray-400 font-medium max-w-2xl">
-            From daily multivitamin boosters to specialized over-the-counter
-            care, find everything you need for a healthier lifestyle.
-          </p>
-        </div>
+    <div className="min-h-screen py-12 lg:py-16 pt-14 pb-24 transition-colors duration-300">
+      <div className="container mx-auto px-4 pb-8">
+        <SectionHeader
+          label="Medixo Pharmacy"
+          title="Explore Our "
+          highlight="Catalog"
+          align="center"
+        />
 
         <ShopFilters categories={categories || []} />
 
@@ -65,16 +59,13 @@ export default async function ShopPage({
               No Medicines Found
             </h3>
             <p className="text-muted-foreground dark:text-gray-400 font-medium max-w-md mb-8 uppercase tracking-widest text-sm leading-relaxed">
-              We couldn't find any products matching your criteria. Try
+              We could not find any products matching your criteria. Try
               adjusting your filters or check back later.
             </p>
             <div className="flex gap-4">
-              <a
-                href="/shop"
-                className="px-8 py-3 bg-primary text-white rounded-md font-black uppercase tracking-widest text-sm hover:scale-105 transition-transform shadow-lg shadow-primary/30"
-              >
+              <Link href="/shop" className="px-8 py-3 border-primary ">
                 Clear Filters
-              </a>
+              </Link>
             </div>
           </div>
         )}

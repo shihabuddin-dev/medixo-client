@@ -1,118 +1,145 @@
 "use client";
 
-import React from "react";
 import {
   Stethoscope,
   Baby,
   HeartPulse,
-  Settings2,
   Sparkles,
   FlaskConical,
+  User,
+  Activity,
+  Droplet,
+  Pill,
+  Leaf,
   ChevronRight,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 const defaultCategories = [
   {
     name: "Prescription",
     icon: Stethoscope,
-    color: "bg-blue-500",
+    linear: "from-sky-500 to-cyan-500",
     count: "1,200+ Products",
   },
   {
     name: "Baby Care",
     icon: Baby,
-    color: "bg-pink-500",
+    linear: "from-pink-500 to-rose-500",
     count: "450+ Products",
   },
   {
     name: "Heart Health",
     icon: HeartPulse,
-    color: "bg-red-500",
+    linear: "from-red-500 to-orange-500",
     count: "300+ Products",
   },
   {
     name: "Vitamins",
     icon: Sparkles,
-    color: "bg-orange-500",
+    linear: "from-amber-500 to-yellow-500",
     count: "800+ Products",
   },
   {
     name: "Lab Test",
     icon: FlaskConical,
-    color: "bg-emerald-500",
+    linear: "from-emerald-500 to-teal-500",
     count: "150+ Tests",
   },
   {
     name: "Personal Care",
-    icon: Settings2,
-    color: "bg-indigo-500",
+    icon: User,
+    linear: "from-indigo-500 to-violet-500",
     count: "2,000+ Products",
+  },
+  {
+    name: "Diabetes Care",
+    icon: Activity,
+    linear: "from-purple-500 to-fuchsia-500",
+    count: "220+ Products",
+  },
+  {
+    name: "Skin Care",
+    icon: Droplet,
+    linear: "from-rose-500 to-pink-500",
+    count: "540+ Products",
+  },
+  {
+    name: "Pain Relief",
+    icon: Pill,
+    linear: "from-orange-500 to-red-500",
+    count: "310+ Products",
+  },
+  {
+    name: "Supplements",
+    icon: Leaf,
+    linear: "from-lime-500 to-emerald-500",
+    count: "680+ Products",
   },
 ];
 
 export function Categories({ data }: { data?: any[] }) {
   const displayCategories =
     data && data.length > 0
-      ? data.map((cat, idx) => {
+      ? data.slice(0, 10).map((cat, idx) => {
           const defaults = defaultCategories[idx % defaultCategories.length];
           return {
             ...cat,
             icon: defaults.icon,
-            color: defaults.color,
-            count: defaults.count, // In a real app, this would come from the API
+            linear: defaults.linear,
+            count: defaults.count,
           };
         })
-      : defaultCategories;
+      : defaultCategories.slice(0, 10);
 
   return (
-    <section className="py-24 bg-white/50 dark:bg-black/10 backdrop-blur-sm">
+    <section className="py-24 bg-background relative">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-6 mb-16">
-          <div className="space-y-4 max-w-xl text-center md:text-left">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] text-primary">
-              Browse Pharmacy
-            </h2>
-            <h3 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900 dark:text-gray-100">
-              Choose by <span className="text-primary italic">Category.</span>
-            </h3>
-          </div>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row items-end justify-between gap-6 mb-14">
+          <SectionHeader
+            label="Browse Pharmacy"
+            title="Choose by"
+            highlight="Category"
+          />
+
           <Link
             href="/shop"
-            className="group flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-all"
+            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition"
           >
-            View All Collections
+            View All
             <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {/* Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {displayCategories.map((cat, idx) => (
             <motion.div
               key={cat.id || cat.name}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="group cursor-pointer"
+              transition={{ delay: idx * 0.08 }}
             >
-              <Link href={`/shop?categoriesId=${cat.id}`}>
-                <div className="relative overflow-hidden rounded-md bg-white/70 dark:bg-black/20 backdrop-blur-md ring-1 ring-gray-100 dark:ring-white/10 shadow-xl shadow-gray-100/50 p-8 flex flex-col items-center text-center transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-primary/10 group-hover:ring-primary/20">
+              <Link href={`/shop?categoriesId=${cat.id || ""}`}>
+                <div className="group relative rounded-xl border border-border bg-card p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  {/* Icon */}
                   <div
-                    className={`h-16 w-16 rounded-md ${cat.color} text-white flex items-center justify-center mb-6 shadow-lg shadow-${cat.color.split("-")[1]}-500/20 group-hover:scale-110 transition-transform`}
+                    className={`mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-linear-to-br ${cat.linear} text-white shadow-md group-hover:scale-110 transition`}
                   >
-                    <cat.icon size={32} />
+                    <cat.icon size={26} />
                   </div>
-                  <h4 className="font-black text-gray-900 dark:text-gray-100 text-lg mb-1">
-                    {cat.name}
-                  </h4>
-                  <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest">
-                    {cat.count}
-                  </p>
 
-                  {/* Decorative background element */}
-                  <div className="absolute -bottom-4 -right-4 h-16 w-16 bg-gray-50 dark:bg-white/5 rounded-md -z-10 group-hover:bg-primary/5 transition-colors" />
+                  {/* Title */}
+                  <h4 className="font-semibold text-base mb-1">{cat.name}</h4>
+
+                  {/* Count */}
+                  <p className="text-xs text-muted-foreground">{cat.count}</p>
+
+                  <div className="absolute inset-0 rounded-xl ring-1 ring-transparent group-hover:ring-primary/20 transition pointer-events-none" />
                 </div>
               </Link>
             </motion.div>

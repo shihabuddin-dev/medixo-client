@@ -1,14 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Field,
   FieldError,
@@ -20,6 +13,7 @@ import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import * as z from "zod";
+import Link from "next/link";
 
 import { Roles } from "@/constants/roles";
 
@@ -68,128 +62,189 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   });
 
   return (
-    <Card {...props}>
-      <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
-          Enter your information below to create your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form
-          id="login-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
-        >
-          <FieldGroup>
-            <form.Field
-              name="name"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field data-invalid={isInvalid}>
-                    <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-                    <Input
-                      type="text"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            />
-            <form.Field
-              name="email"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Email</FieldLabel>
-                    <Input
-                      type="email"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            />
-            <form.Field
-              name="password"
-              children={(field) => {
-                const isInvalid =
-                  field.state.meta.isTouched && !field.state.meta.isValid;
-                return (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                    <Input
-                      type="password"
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                    />
-                    {isInvalid && (
-                      <FieldError errors={field.state.meta.errors} />
-                    )}
-                  </Field>
-                );
-              }}
-            />
-            <form.Field
-              name="role"
-              children={(field) => {
-                return (
-                  <Field>
-                    <FieldLabel htmlFor={field.name}>Join as</FieldLabel>
-                    <select
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      className="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22currentColor%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E')] bg-[length:1.2em_1.2em] bg-[right_0.5rem_center] bg-no-repeat"
-                    >
-                      <option value={Roles.customer}>
-                        Customer (I want to buy)
-                      </option>
-                      <option value={Roles.seller}>
-                        Seller (I want to sell)
-                      </option>
-                    </select>
-                  </Field>
-                );
-              }}
-            />
-          </FieldGroup>
-        </form>
-      </CardContent>
-      <CardFooter className="flex flex-col gap-5 justify-end">
-        <Button form="login-form" type="submit" className="w-full">
-          Register
-        </Button>
-        <Button
-          onClick={() => handleGoogleLogin()}
-          variant="outline"
-          type="button"
-          className="w-full"
-        >
-          Continue with Google
-        </Button>
-      </CardFooter>
-    </Card>
+    <div className="py-10 relative min-h-screen flex items-center justify-center px-4 text-gray-300 overflow-hidden">
+      
+      {/* Background */}
+      <div className="absolute top-0 left-0 w-full h-full -z-10">
+        <iframe
+          src="https://my.spline.design/spaceparticlesanimation-UGnU6SB7nUK6sFI6N5WzasEx"
+          className="w-full h-full border-0"
+        />
+      </div>
+
+      {/* Card */}
+      <Card
+        {...props}
+        className="w-full max-w-md p-[1px] rounded-lg border border-white/10 bg-linear-to-b from-white/5 to-white/[0.02] shadow-2xl backdrop-blur-xl"
+      >
+        <div className="rounded-lg bg-black/60 px-8 py-10">
+
+          {/* Header */}
+          <div className="mb-8 text-center">
+            <span className="inline-block mb-2 text-white text-2xl font-semibold tracking-tight">
+              Medixo
+            </span>
+
+            <h1 className="text-[42px] font-semibold tracking-[-0.05em] text-white leading-tight">
+              Create Account
+            </h1>
+
+            <p className="text-gray-400 mt-1 text-lg">
+              Join and start using your account
+            </p>
+          </div>
+
+          {/* Form */}
+          <form
+            id="register-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.handleSubmit();
+            }}
+            className="space-y-5"
+          >
+            <FieldGroup>
+
+              {/* Name */}
+              <form.Field
+                name="name"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                      <Input
+                      placeholder="Enter Your Name"
+                        type="text"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="bg-black/40 border border-gray-700 text-white focus:ring-2 focus:ring-white"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+
+              {/* Email */}
+              <form.Field
+                name="email"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                      <Input
+                        placeholder="Enter Your Email"
+                        type="email"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="bg-black/40 border border-gray-700 text-white focus:ring-2 focus:ring-white"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+
+              {/* Password */}
+              <form.Field
+                name="password"
+                children={(field) => {
+                  const isInvalid =
+                    field.state.meta.isTouched && !field.state.meta.isValid;
+                  return (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                      <Input
+                        placeholder="Enter Your Password"
+                        type="password"
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="bg-black/40 border border-gray-700 text-white focus:ring-2 focus:ring-white"
+                      />
+                      {isInvalid && (
+                        <FieldError errors={field.state.meta.errors} />
+                      )}
+                    </Field>
+                  );
+                }}
+              />
+
+              {/* Role */}
+              <form.Field
+                name="role"
+                children={(field) => {
+                  return (
+                    <Field>
+                      <FieldLabel htmlFor={field.name}>Join as</FieldLabel>
+                      <select
+                        id={field.name}
+                        name={field.name}
+                        value={field.state.value}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        className="w-full h-11 rounded-md border border-gray-700 bg-black/40 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white"
+                      >
+                        <option value={Roles.customer}>
+                          Customer
+                        </option>
+                        <option value={Roles.seller}>
+                          Seller
+                        </option>
+                      </select>
+                    </Field>
+                  );
+                }}
+              />
+            </FieldGroup>
+          </form>
+
+          {/* Actions */}
+          <div className="mt-7 space-y-3">
+            <Button
+              form="register-form"
+              type="submit"
+              className="w-full bg-white text-black hover:bg-gray-100 font-semibold"
+            >
+              Register
+            </Button>
+
+            <Button
+              onClick={() => handleGoogleLogin()}
+              variant="outline"
+              type="button"
+              className="w-full border-white/20 text-white hover:bg-white/10"
+            >
+              Continue with Google
+            </Button>
+          </div>
+
+          {/* Footer */}
+          <div className="my-7 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
+
+          <div className="text-center text-sm text-gray-400">
+            Already have an account?
+            <Link
+              href="/login"
+              className="ml-2 text-white font-semibold underline hover:no-underline"
+            >
+              Login
+            </Link>
+          </div>
+        </div>
+      </Card>
+    </div>
   );
 }

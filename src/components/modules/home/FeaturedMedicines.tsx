@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { adminService } from "@/services/admin.service";
+import SectionHeader from "@/components/shared/SectionHeader";
 
 export async function FeaturedMedicines() {
   const { data: medicines } = await adminService.getAllMedicines();
+  console.log(medicines);
 
   // Show only first 4 as featured
   const featured = medicines?.slice(0, 4) || [];
@@ -16,16 +18,15 @@ export async function FeaturedMedicines() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between mb-16 px-4">
           <div className="space-y-4">
-            <h2 className="text-sm font-black uppercase tracking-[0.2em] text-primary">
-              Popular Choices
-            </h2>
-            <h3 className="text-4xl md:text-5xl font-black tracking-tight text-gray-900">
-              Featured <span className="text-primary italic">Medicines.</span>
-            </h3>
+            <SectionHeader
+              label="Popular Choices"
+              title="Featured"
+              highlight="Medicines."
+            />
           </div>
           <Link
             href="/shop"
-            className="hidden sm:flex items-center gap-2 font-bold px-6 py-3 rounded-md bg-gray-100 dark:bg-white/5 dark:text-gray-300 hover:bg-primary hover:text-white transition-all"
+            className="hidden sm:flex items-center gap-2 font-bold px-6 py-3 rounded-md backdrop-blur-2xl border-gray-100"
           >
             Browse Pharmacy <ArrowRight className="h-4 w-4" />
           </Link>

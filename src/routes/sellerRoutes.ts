@@ -4,6 +4,7 @@ import {
   Package,
   ShoppingBag,
   UserCircle,
+  HeartPlus
 } from "lucide-react";
 
 export const sellerRoutes: Route[] = [
@@ -19,6 +20,11 @@ export const sellerRoutes: Route[] = [
         title: "Inventory",
         url: "/seller-dashboard/medicines",
         icon: Package,
+      },
+      {
+        title: "Add Medicine",
+        url: "/seller-dashboard/add-medicine",
+        icon: HeartPlus,
       },
       {
         title: "Orders",

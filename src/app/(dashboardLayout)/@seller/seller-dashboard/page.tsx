@@ -27,7 +27,7 @@ const SellerDashboard = async () => {
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-black tracking-tight text-primary uppercase">
-          Marketforce Operational
+          Seller Dashboard{" "}
         </h1>
         <p className="text-muted-foreground dark:text-gray-400 font-medium">
           Welcome back, {session?.user?.name}. Real-time business analytics as

@@ -9,8 +9,19 @@ import {
   Package,
   TrendingUp,
   ShieldAlert,
+  Activity,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  Server,
+  Zap,
+  ArrowUpRight,
+  ArrowDownRight,
 } from "lucide-react";
 import { redirect } from "next/navigation";
+import RevenueChart from "@/components/ui/RevenueChart";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 
 const AdminDashboardPage = async () => {
   const { data: session } = await userService.getSession();
@@ -32,181 +43,342 @@ const AdminDashboardPage = async () => {
     users?.filter((u: any) => u.status === "ACTIVE").length || 0;
   const blockedUsers =
     users?.filter((u: any) => u.status === "BLOCKED").length || 0;
+  const pendingUsers =
+    users?.filter((u: any) => u.status === "PENDING").length || 0;
+
+  const completedOrders =
+    orders?.filter((o: any) => o.status === "DELIVERED").length || 0;
+  const pendingOrders =
+    orders?.filter((o: any) => o.status === "PENDING").length || 0;
+
+  const lowStockMedicines = medicines?.filter((m: any) => m.stock < 10).length || 0;
+
+  // Generate chart data (last 7 days)
+  const chartData = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date();
+    date.setDate(date.getDate() - (6 - i));
+    const dayOrders = orders?.filter((o: any) => {
+      const orderDate = new Date(o.createdAt);
+      return orderDate.toDateString() === date.toDateString();
+    }) || [];
+    
+    const revenue = dayOrders.reduce((acc: number, o: any) => acc + (o.totalPrice || 0), 0);
+    
+    return {
+      name: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      revenue,
+      orders: dayOrders.length,
+    };
+  });
 
   const stats = [
     {
       title: "Total Revenue",
-      value: `$${totalRevenue.toFixed(2)}`,
-      description: "Accumulated from all successful sales",
+      value: `$${totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+      description: `${((totalRevenue / 10000) * 100).toFixed(1)}% of target`,
       icon: DollarSign,
-      color: "text-emerald-600",
-      bg: "bg-emerald-50",
-      border: "border-emerald-100",
+      trend: 12.5,
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
     },
     {
-      title: "Platform Users",
-      value: users?.length || 0,
-      description: `${activeUsers} active accounts currently`,
+      title: "Active Users",
+      value: activeUsers.toLocaleString(),
+      description: `${((activeUsers / users?.length) * 100).toFixed(1)}% active rate`,
       icon: Users,
-      color: "text-blue-600",
-      bg: "bg-blue-50",
-      border: "border-blue-100",
+      trend: 8.3,
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
     },
     {
       title: "Total Orders",
-      value: orders?.length || 0,
-      description: "Total transactions processed",
+      value: orders?.length?.toLocaleString() || "0",
+      description: `${completedOrders} completed • ${pendingOrders} pending`,
       icon: ShoppingBag,
-      color: "text-purple-600",
-      bg: "bg-purple-50",
-      border: "border-purple-100",
+      trend: -3.2,
+      color: "text-orange-500",
+      bgColor: "bg-orange-500/10",
     },
     {
-      title: "Medicine Catalog",
-      value: medicines?.length || 0,
-      description: "Verified items in inventory",
+      title: "Medicines",
+      value: medicines?.length?.toLocaleString() || "0",
+      description: `${lowStockMedicines} low in stock`,
       icon: Package,
-      color: "text-orange-600",
-      bg: "bg-orange-50",
-      border: "border-orange-100",
+      trend: 5.7,
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
+    },
+  ];
+
+  const securityItems = [
+    {
+      title: "Blocked Users",
+      value: blockedUsers,
+      description: "Requires review",
+      icon: ShieldAlert,
+      color: "bg-red-500/10 text-red-600",
+      trend: 2,
+    },
+    {
+      title: "Pending Users",
+      value: pendingUsers,
+      description: "Awaiting verification",
+      icon: Clock,
+      color: "bg-yellow-500/10 text-yellow-600",
+      trend: 5,
+    },
+    {
+      title: "Recent Alerts",
+      value: 3,
+      description: "Last 24 hours",
+      icon: AlertCircle,
+      color: "bg-orange-500/10 text-orange-600",
+      trend: 0,
     },
   ];
 
   return (
-    <div className="space-y-8 p-2">
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-2 bg-primary rounded-full shadow-[0_0_15px_rgba(var(--primary),0.5)]" />
-          <h1 className="text-4xl font-black tracking-tight text-gray-900 dark:text-gray-100 leading-none uppercase">
-            Platform <span className="text-primary italic">Nexus</span>
-          </h1>
+    <div className=" bg-linear-to-br from-background via-background to-muted/5 p-4 md:p-6 lg:p-8">
+      <div className=" space-y-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-linear-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+              Admin Dashboard
+            </h1>
+            <p className="text-muted-foreground mt-2">
+              Real-time overview of platform performance and analytics
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="outline" className="gap-2">
+              <Activity size={14} />
+              Live
+            </Badge>
+            <Badge className="bg-primary/10 text-primary border-primary/20">
+              Last updated: Just now
+            </Badge>
+          </div>
         </div>
-        <p className="text-muted-foreground font-medium pl-5">
-          Global platform overview and real-time operations monitor.
-        </p>
-      </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        {stats.map((stat) => (
-          <Card
-            key={stat.title}
-            className={`border-none ring-1 ring-gray-200 dark:ring-white/10 shadow-sm overflow-hidden group hover:ring-primary/20 transition-all rounded-md bg-white/70 dark:bg-black/20 backdrop-blur-md`}
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-black uppercase tracking-widest text-muted-foreground dark:text-gray-400">
-                {stat.title}
-              </CardTitle>
-              <div
-                className={`${stat.bg} dark:bg-white/5 ${stat.color} p-2 rounded-md group-hover:scale-110 transition-transform`}
-              >
-                <stat.icon className="h-4 w-4" />
+        {/* Stats Grid */}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {stats.map((stat) => (
+            <Card 
+              key={stat.title} 
+              className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-linear-to-br from-card to-card/80 overflow-hidden group"
+            >
+              <CardContent className="p-6">
+                <div className="flex items-start justify-between mb-4">
+                  <div className={`p-3 rounded-xl ${stat.bgColor}`}>
+                    <stat.icon className={`h-6 w-6 ${stat.color}`} />
+                  </div>
+                  <div className="flex items-center gap-1 text-sm">
+                    {stat.trend > 0 ? (
+                      <ArrowUpRight className="h-4 w-4 text-green-500" />
+                    ) : (
+                      <ArrowDownRight className="h-4 w-4 text-red-500" />
+                    )}
+                    <span className={stat.trend > 0 ? "text-green-500" : "text-red-500"}>
+                      {Math.abs(stat.trend)}%
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <p className="text-sm text-muted-foreground font-medium">{stat.title}</p>
+                  <h3 className="text-2xl font-bold tracking-tight">{stat.value}</h3>
+                  <p className="text-xs text-muted-foreground">{stat.description}</p>
+                </div>
+
+                <Progress value={Math.min(Math.abs(stat.trend) * 10, 100)} className="mt-4 h-1.5" />
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Charts & Security Section */}
+        <div className="grid gap-6 lg:grid-cols-3">
+          {/* Revenue Chart */}
+          <Card className="lg:col-span-2 border-0 shadow-lg bg-linear-to-br from-card to-card/80">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  Revenue Analytics
+                </CardTitle>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="text-xs">Last 7 days</Badge>
+                  <Badge className="bg-green-500/10 text-green-600 border-green-500/20 text-xs">
+                    +12.5% growth
+                  </Badge>
+                </div>
               </div>
             </CardHeader>
+
             <CardContent>
-              <div className="text-3xl font-black tracking-tighter text-gray-900 dark:text-gray-100">
-                {stat.value}
+              <div className="h-[300px]">
+                <RevenueChart data={chartData} />
               </div>
-              <p className="text-xs font-bold text-gray-400 dark:text-gray-500 mt-1 uppercase tracking-tight">
-                {stat.description}
-              </p>
+              <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
+                <div className="p-3 rounded-lg bg-muted/30">
+                  <p className="text-muted-foreground">Avg. Order Value</p>
+                  <p className="text-xl font-semibold mt-1">
+                    ${(totalRevenue / (orders?.length || 1)).toFixed(2)}
+                  </p>
+                </div>
+                <div className="p-3 rounded-lg bg-muted/30">
+                  <p className="text-muted-foreground">Conversion Rate</p>
+                  <p className="text-xl font-semibold mt-1">
+                    {((orders?.length / (users?.length || 1)) * 100).toFixed(1)}%
+                  </p>
+                </div>
+              </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-4 border-none ring-1 ring-gray-100 dark:ring-white/10 shadow-xl shadow-gray-100/20 dark:shadow-none rounded-md overflow-hidden bg-white/70 dark:bg-black/20 backdrop-blur-md">
-          <CardHeader className="bg-gray-50/50 dark:bg-white/5 border-b dark:border-white/10 py-6">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-xl font-black tracking-tight text-gray-900 dark:text-gray-100 uppercase italic">
+          {/* Security Overview */}
+          <Card className="border-0 shadow-lg bg-linear-to-br from-card to-card/80">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                <ShieldAlert className="h-5 w-5 text-primary" />
+                Security Overview
+              </CardTitle>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {securityItems.map((item) => (
+                <div 
+                  key={item.title} 
+                  className="flex items-center gap-4 p-4 rounded-xl border bg-linear-to-br from-muted/20 to-muted/5 hover:bg-muted/30 transition-colors"
+                >
+                  <div className={`p-3 rounded-lg ${item.color.split(' ')[0]}`}>
+                    <item.icon className="h-5 w-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium">{item.title}</p>
+                      <Badge variant="secondary" className="text-xs">
+                        {item.trend > 0 ? `+${item.trend}` : item.trend}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center justify-between mt-1">
+                      <p className="text-2xl font-bold">{item.value}</p>
+                      <p className="text-xs text-muted-foreground">{item.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <div className="p-4 rounded-xl bg-linear-to-r from-primary/5 to-primary/10 border border-primary/20">
+                <div className="flex items-center gap-3">
+                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <div>
+                    <p className="font-medium">All systems operational</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Security protocols are active and running
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* System Health & Quick Stats */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* System Health */}
+          <Card className="border-0 shadow-lg bg-linear-to-br from-card to-card/80">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                <Server className="h-5 w-5 text-primary" />
                 System Health
               </CardTitle>
-              <TrendingUp className="text-blue-500 h-5 w-5" />
-            </div>
-          </CardHeader>
-          <CardContent className="p-8">
-            <div className="space-y-8">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-black text-gray-600 dark:text-gray-400 uppercase tracking-widest text-[10px]">
-                    Core Operational Node
-                  </span>
-                  <span className="font-black text-emerald-500 text-[10px]">
-                    100% STABLE
-                  </span>
-                </div>
-                <div className="h-3 w-full bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden p-0.5">
-                  <div
-                    className="h-full bg-primary rounded-full animate-pulse shadow-[0_0_15px_rgba(var(--primary),0.5)]"
-                    style={{ width: "100%" }}
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              {[
+                { label: "Server Load", value: 75, status: "Optimal" },
+                { label: "Database", value: 92, status: "High" },
+                { label: "Cache", value: 65, status: "Normal" },
+                { label: "API", value: 88, status: "Optimal" },
+              ].map((item) => (
+                <div key={item.label} className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">{item.label}</span>
+                    <span className="font-medium text-primary">{item.status}</span>
+                  </div>
+                  <Progress 
+                    value={item.value} 
+                    className="h-2"
+                    indicatorClassName={
+                      item.value > 90 ? "bg-red-500" : 
+                      item.value > 75 ? "bg-orange-500" : 
+                      "bg-green-500"
+                    }
                   />
                 </div>
-              </div>
+              ))}
 
-              <div className="grid grid-cols-2 gap-8">
-                <div className="p-4 rounded-md bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
-                  <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">
-                    Response Delta
-                  </p>
-                  <p className="text-2xl font-black text-gray-900 dark:text-gray-100 tracking-tighter">
-                    42ms
-                  </p>
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t">
+                <div className="text-center p-4 rounded-lg bg-muted/30">
+                  <Zap className="h-8 w-8 text-yellow-500 mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">Response Time</p>
+                  <p className="text-xl font-semibold">42ms</p>
                 </div>
-                <div className="p-4 rounded-md bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
-                  <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">
-                    API Throughput
-                  </p>
-                  <p className="text-2xl font-black text-gray-900 dark:text-gray-100 tracking-tighter">
-                    1.2k rps
-                  </p>
+                <div className="text-center p-4 rounded-lg bg-muted/30">
+                  <Activity className="h-8 w-8 text-blue-500 mx-auto mb-2" />
+                  <p className="text-sm text-muted-foreground">Uptime</p>
+                  <p className="text-xl font-semibold">99.9%</p>
                 </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
 
-        <Card className="lg:col-span-3 border-none ring-1 ring-red-100 dark:ring-red-500/10 shadow-sm rounded-md overflow-hidden bg-white/70 dark:bg-black/20 backdrop-blur-md">
-          <CardHeader className="bg-red-50/30 dark:bg-red-500/5 border-b border-red-50 dark:border-red-500/10 py-6">
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-xl font-black tracking-tight text-red-900 dark:text-red-400 uppercase italic">
-                Security Pulse
+          {/* Recent Activity */}
+          <Card className="border-0 shadow-lg bg-linear-to-br from-card to-card/80">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold">
+                <Activity className="h-5 w-5 text-primary" />
+                Recent Activity
               </CardTitle>
-              <ShieldAlert className="text-red-500 h-5 w-5" />
-            </div>
-          </CardHeader>
-          <CardContent className="p-8">
-            <div className="space-y-6">
-              <div className="flex items-center gap-4 p-4 rounded-md bg-red-50/50 dark:bg-red-500/10 border border-red-100 dark:border-red-500/20">
-                <span className="text-3xl font-black text-red-600 dark:text-red-500">
-                  {blockedUsers}
-                </span>
-                <div className="space-y-0.5">
-                  <p className="text-xs font-black text-red-900 dark:text-red-400 uppercase tracking-widest">
-                    Blocked Identities
-                  </p>
-                  <p className="text-[10px] font-bold text-red-500 dark:text-red-600 italic uppercase">
-                    Awaiting Review
-                  </p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest pl-1">
-                  Recent Anomalies
-                </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-xs font-bold text-gray-600 dark:text-gray-400 bg-white dark:bg-white/5 p-2 rounded-md border dark:border-white/10 shadow-sm">
-                    <div className="h-1.5 w-1.5 rounded-full bg-red-500 animate-ping" />
-                    <span>Cross-origin login attempt blocked</span>
+            </CardHeader>
+
+            <CardContent className="space-y-4">
+              {[
+                { action: "New order placed", user: "John Doe", time: "2 min ago", type: "order" },
+                { action: "User registration", user: "Sarah Smith", time: "5 min ago", type: "user" },
+                { action: "Medicine stock updated", user: "System", time: "15 min ago", type: "inventory" },
+                { action: "Payment processed", user: "Mike Johnson", time: "30 min ago", type: "payment" },
+                { action: "Admin login", user: session.user.name, time: "1 hour ago", type: "security" },
+              ].map((activity) => (
+                <div 
+                  key={activity.time} 
+                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/30 transition-colors"
+                >
+                  <div className={`p-2 rounded-lg ${
+                    activity.type === 'order' ? 'bg-green-500/10' :
+                    activity.type === 'user' ? 'bg-blue-500/10' :
+                    activity.type === 'inventory' ? 'bg-purple-500/10' :
+                    activity.type === 'payment' ? 'bg-yellow-500/10' : 'bg-red-500/10'
+                  }`}>
+                    {activity.type === 'order' && <ShoppingBag className="h-4 w-4 text-green-500" />}
+                    {activity.type === 'user' && <Users className="h-4 w-4 text-blue-500" />}
+                    {activity.type === 'inventory' && <Package className="h-4 w-4 text-purple-500" />}
+                    {activity.type === 'payment' && <DollarSign className="h-4 w-4 text-yellow-500" />}
+                    {activity.type === 'security' && <ShieldAlert className="h-4 w-4 text-red-500" />}
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-bold text-gray-600 dark:text-gray-400 bg-white dark:bg-white/5 p-2 rounded-md border dark:border-white/10 shadow-sm">
-                    <div className="h-1.5 w-1.5 rounded-full bg-orange-500" />
-                    <span>Frequent metadata mutation detected</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium truncate">{activity.action}</p>
+                    <p className="text-xs text-muted-foreground">
+                      by {activity.user} • {activity.time}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+              ))}
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
