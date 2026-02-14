@@ -14,6 +14,31 @@ export async function addMedicineAction(formData: any) {
 
   return result;
 }
+
+export async function updateMedicineAction(id: string, formData: any) {
+  const result = await sellerService.updateMedicine(id, formData);
+
+  if (!result.err) {
+    revalidatePath("/seller-dashboard/medicines");
+    revalidatePath("/shop");
+    revalidatePath("/");
+  }
+
+  return result;
+}
+
+export async function deleteMedicineAction(id: string) {
+  const result = await sellerService.deleteMedicine(id);
+
+  if (!result.err) {
+    revalidatePath("/seller-dashboard/medicines");
+    revalidatePath("/shop");
+    revalidatePath("/");
+  }
+
+  return result;
+}
+
 export async function updateOrderStatusAction(id: string, status: string) {
   const result = await sellerService.updateOrderStatus(id, status);
 

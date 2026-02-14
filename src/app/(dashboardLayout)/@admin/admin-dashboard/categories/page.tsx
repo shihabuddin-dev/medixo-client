@@ -40,10 +40,10 @@ const AdminCategoriesPage = async () => {
           </p>
         </div>
 
-        <Button className="h-11 px-6 rounded-lg shadow-md">
+        {/* <Button className="h-11 px-6 rounded-lg shadow-md">
           <Plus className="mr-2 h-4 w-4" />
           New Category
-        </Button>
+        </Button> */}
 
       </div>
 

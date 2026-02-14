@@ -1,5 +1,4 @@
-import React from "react";
-import { AddMedicineForm } from "@/components/modules/seller/add-medicine-form";
+import { MedicineForm } from "@/components/modules/seller/MedicineForm";
 import { adminService } from "@/services/admin.service";
 
 const AddMedicinePage = async () => {
@@ -9,7 +8,7 @@ const AddMedicinePage = async () => {
 
   return (
     <div className="py-8">
-      <AddMedicineForm categories={categories || []} />
+      <MedicineForm categories={categories || []} />
     </div>
   );
 };

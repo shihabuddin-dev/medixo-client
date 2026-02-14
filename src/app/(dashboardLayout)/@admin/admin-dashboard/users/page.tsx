@@ -4,7 +4,7 @@ import { userService } from "@/services/user.service";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserCog, Mail, User as UserIcon } from "lucide-react";
 import { redirect } from "next/navigation";
-import { UserStatusToggle } from "@/components/modules/admin/UserStatusToggle";
+import { UserRowActions } from "@/components/modules/admin/UserRowActions";
 
 const AdminUsersPage = async () => {
   const { data: session } = await userService.getSession();
@@ -67,11 +67,10 @@ const AdminUsersPage = async () => {
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-4">
                         <div
-                          className={`h-11 w-11 rounded-lg flex items-center justify-center border bg-muted ${
-                            user.status === "ACTIVE"
-                              ? "text-primary"
-                              : "text-destructive"
-                          }`}
+                          className={`h-11 w-11 rounded-lg flex items-center justify-center border bg-muted ${user.status === "ACTIVE"
+                            ? "text-primary"
+                            : "text-destructive"
+                            }`}
                         >
                           <UserIcon size={18} />
                         </div>
@@ -95,13 +94,12 @@ const AdminUsersPage = async () => {
                         </span>
 
                         <span
-                          className={`px-2 py-0.5 rounded-md w-fit font-medium ${
-                            user.status === "ACTIVE"
-                              ? "bg-emerald-500/10 text-emerald-600"
-                              : user.status === "BLOCKED"
-                                ? "bg-destructive/10 text-destructive"
-                                : "bg-muted text-muted-foreground"
-                          }`}
+                          className={`px-2 py-0.5 rounded-md w-fit font-medium ${user.status === "ACTIVE"
+                            ? "bg-emerald-500/10 text-emerald-600"
+                            : user.status === "BLOCKED"
+                              ? "bg-destructive/10 text-destructive"
+                              : "bg-muted text-muted-foreground"
+                            }`}
                         >
                           {user.status}
                         </span>
@@ -119,7 +117,7 @@ const AdminUsersPage = async () => {
 
                     {/* Actions */}
                     <td className="px-6 py-5 text-right">
-                      <UserStatusToggle user={user} />
+                      <UserRowActions user={user} />
                     </td>
                   </tr>
                 ))}

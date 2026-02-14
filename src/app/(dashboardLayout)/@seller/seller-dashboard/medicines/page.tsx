@@ -1,5 +1,6 @@
 import React from "react";
 import { sellerService } from "@/services/seller.service";
+import { MedicineActions } from "@/components/modules/seller/MedicineActions";
 import { userService } from "@/services/user.service";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
@@ -8,7 +9,6 @@ import { Button } from "@/components/ui/button";
 
 const SellerMedicinesPage = async () => {
   const { data: session } = await userService.getSession();
-
   const { data: sellerMedicines } = await sellerService.getSellerMedicines(
     session?.user?.id
   );
@@ -27,7 +27,7 @@ const SellerMedicinesPage = async () => {
           </p>
         </div>
 
-        <Link href="/seller-dashboard/medicines/add">
+        <Link href="/seller-dashboard/add-medicine">
           <Button className="gap-2">
             <Plus className="h-4 w-4" />
             Add Medicine
@@ -91,11 +91,10 @@ const SellerMedicinesPage = async () => {
                       {/* Stock */}
                       <td className="px-6 py-4">
                         <span
-                          className={`text-xs px-2 py-1 rounded-md font-medium ${
-                            med.stock < 10
-                              ? "bg-red-500/10 text-red-600"
-                              : "bg-emerald-500/10 text-emerald-600"
-                          }`}
+                          className={`text-xs px-2 py-1 rounded-md font-medium ${med.stock < 10
+                            ? "bg-red-500/10 text-red-600"
+                            : "bg-emerald-500/10 text-emerald-600"
+                            }`}
                         >
                           {med.stock} units
                         </span>
@@ -108,25 +107,7 @@ const SellerMedicinesPage = async () => {
 
                       {/* Actions */}
                       <td className="px-6 py-4 text-right">
-                        <div className="flex justify-end gap-2">
-
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8"
-                          >
-                            <Edit className="h-4 w-4" />
-                          </Button>
-
-                          <Button
-                            variant="outline"
-                            size="icon"
-                            className="h-8 w-8 text-red-500 border-red-200 hover:bg-red-500/10"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-
-                        </div>
+                        <MedicineActions id={med.id} />
                       </td>
                     </tr>
                   ))
@@ -136,7 +117,7 @@ const SellerMedicinesPage = async () => {
                       <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground space-y-3">
                         <Package className="h-10 w-10 opacity-40" />
                         <p>No medicines added yet</p>
-                        <Link href="/seller-dashboard/medicines/add">
+                        <Link href="/seller-dashboard/add-medicine">
                           <Button size="sm">Add your first medicine</Button>
                         </Link>
                       </div>
