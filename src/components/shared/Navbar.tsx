@@ -27,7 +27,7 @@ const menu = [
 export function Navbar({ className }: { className?: string }) {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
-
+console.log(session, user);
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 

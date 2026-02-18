@@ -1,9 +1,10 @@
 import React from "react";
 import { sellerService } from "@/services/seller.service";
 import { userService } from "@/services/user.service";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Package, MapPin, Calendar, CheckCircle2, Clock } from "lucide-react";
+import { Card, CardContent} from "@/components/ui/card";
+import { Package, MapPin, Calendar, Clock } from "lucide-react";
 import { OrderStatusActions } from "@/components/modules/seller/OrderStatusActions";
+export const dynamic = "force-dynamic";
 
 const SellerOrdersPage = async () => {
   const { data: session } = await userService.getSession();

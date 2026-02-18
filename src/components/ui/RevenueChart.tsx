@@ -45,14 +45,14 @@ export default function RevenueChart({ data }: Props) {
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <defs>
-            <linearlinear id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
               <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
-            </linearlinear>
-            <linearlinear id="colorOrders" x1="0" y1="0" x2="0" y2="1">
+            </linearGradient>
+            <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#22c55e" stopOpacity={0.8}/>
               <stop offset="95%" stopColor="#22c55e" stopOpacity={0.1}/>
-            </linearlinear>
+            </linearGradient>
           </defs>
           
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground)/0.1)" vertical={false} />

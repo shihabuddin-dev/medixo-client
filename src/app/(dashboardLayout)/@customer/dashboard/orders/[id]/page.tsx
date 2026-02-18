@@ -13,6 +13,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 const statusSteps = ["PLACED", "PROCESSING", "SHIPPED", "DELIVERED"];
+export const dynamic = "force-dynamic";
 
 const OrderDetailsPage = async ({ params }: { params: { id: string } }) => {
   const { id } = params;

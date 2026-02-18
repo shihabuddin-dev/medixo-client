@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { LayoutGrid, Layers, Plus, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 const AdminCategoriesPage = async () => {
   const { data: session } = await userService.getSession();

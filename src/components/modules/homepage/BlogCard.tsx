@@ -16,9 +16,9 @@ export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Card className="h-full overflow-hidden border-none shadow-md transition-all duration-300 pb-2">
       <div className="relative h-56 w-full overflow-hidden">
-        {post.thumbnail ? (
+        {post.image ? (
           <Image
-            src={post.thumbnail}
+            src={post.image}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-105"

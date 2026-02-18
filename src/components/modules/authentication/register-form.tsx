@@ -24,11 +24,13 @@ const formSchema = z.object({
   role: z.enum([Roles.customer, Roles.seller]),
 });
 
+
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+  // callbackURL: "http://localhost:3000", // development
+      callbackURL: "https://medixo-client.vercel.app", // Production
     });
 
     console.log(data);

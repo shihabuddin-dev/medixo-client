@@ -4,8 +4,9 @@ import { MedicineActions } from "@/components/modules/seller/MedicineActions";
 import { userService } from "@/services/user.service";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { Plus, Edit, Trash2, Package } from "lucide-react";
+import { Plus,Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
+export const dynamic = "force-dynamic";
 
 const SellerMedicinesPage = async () => {
   const { data: session } = await userService.getSession();

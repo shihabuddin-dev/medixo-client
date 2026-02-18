@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Shield, Calendar } from "lucide-react";
 import { ProfileUpdateForm } from "@/components/modules/profile/profile-update-form";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
   const { data: session } = await userService.getSession();

@@ -6,6 +6,7 @@ import { ProfileUpdateForm } from "@/components/modules/profile/profile-update-f
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+export const dynamic = "force-dynamic";
 
 const ProfilePage = async () => {
   const { data: session } = await userService.getSession();

@@ -4,6 +4,7 @@ import { userService } from "@/services/user.service";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Box, Package, Hash, Tag, Store } from "lucide-react";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 const AdminMedicinesPage = async () => {
   const { data: session } = await userService.getSession();

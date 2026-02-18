@@ -10,6 +10,7 @@ import {
   Package,
 } from "lucide-react";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 const AdminOrdersPage = async () => {
   const { data: session } = await userService.getSession();

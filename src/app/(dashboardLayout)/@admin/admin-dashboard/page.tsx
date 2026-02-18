@@ -22,6 +22,8 @@ import { redirect } from "next/navigation";
 import RevenueChart from "@/components/ui/RevenueChart";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+export const dynamic = "force-dynamic";
+
 
 const AdminDashboardPage = async () => {
   const { data: session } = await userService.getSession();

@@ -5,6 +5,7 @@ import { userService } from "@/services/user.service";
 import { redirect } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { ClipboardList } from "lucide-react";
+export const dynamic = "force-dynamic";
 
 export default async function CustomerOrdersPage() {
   const { data: session } = await userService.getSession();

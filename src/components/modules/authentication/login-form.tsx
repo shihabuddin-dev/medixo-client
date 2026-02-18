@@ -22,11 +22,13 @@ const formSchema = z.object({
   email: z.email(),
 });
 
+
 export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+      // callbackURL: "http://localhost:3000", // development
+      callbackURL: "https://medixo-client.vercel.app", // Production
     });
 
     console.log(data);
@@ -104,7 +106,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
                     <Field>
                       <FieldLabel htmlFor={field.name}>Email</FieldLabel>
                       <Input
-                        placeolder="Enter Your Email"
+                        placeholder="Enter Your Email"
                         type="email"
                         id={field.name}
                         name={field.name}
@@ -129,7 +131,7 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
                     <Field>
                       <FieldLabel htmlFor={field.name}>Password</FieldLabel>
                       <Input
-                        placeolder="Enter Your Password"
+                        placeholder="Enter Your Password"
                         type="password"
                         id={field.name}
                         name={field.name}

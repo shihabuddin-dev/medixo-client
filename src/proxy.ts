@@ -4,6 +4,9 @@ import { Roles } from "./constants/roles";
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  //   const { data: session, isPending } = authClient.useSession();
+  //   const user = session?.user;
+  // console.log(session, user);
 
   const { data } = await userService.getSession();
 
@@ -12,7 +15,8 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  const role = data.user.role;
+  const role = data?.user.role;
+  console.log("User role", role)
 
   // Role-based dashboard rules
   const roleRedirectMap: Record<string, string> = {

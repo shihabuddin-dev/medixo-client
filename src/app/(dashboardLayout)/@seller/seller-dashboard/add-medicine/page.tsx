@@ -1,5 +1,6 @@
 import { MedicineForm } from "@/components/modules/seller/MedicineForm";
 import { adminService } from "@/services/admin.service";
+export const dynamic = "force-dynamic";
 
 const AddMedicinePage = async () => {
   // We can reuse adminService to get categories as it's a public-ish list

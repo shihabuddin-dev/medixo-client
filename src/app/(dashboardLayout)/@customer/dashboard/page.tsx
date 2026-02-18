@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import Link from "next/link";
+export const dynamic = "force-dynamic";
 
 const CustomerDashboard = async () => {
   const { data: session } = await userService.getSession();

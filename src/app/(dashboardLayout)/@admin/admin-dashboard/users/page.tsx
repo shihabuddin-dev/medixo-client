@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { UserCog, Mail, User as UserIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { UserRowActions } from "@/components/modules/admin/UserRowActions";
+export const dynamic = "force-dynamic";
 
 const AdminUsersPage = async () => {
   const { data: session } = await userService.getSession();
