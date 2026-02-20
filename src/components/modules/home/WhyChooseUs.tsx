@@ -44,9 +44,9 @@ export function WhyChooseUs() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-plus"
               >
                 <path d="M5 12h14" className=""></path>
@@ -89,8 +89,8 @@ export function WhyChooseUs() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-plus"
               >
                 <path d="M5 12h14" className=""></path>
@@ -130,9 +130,9 @@ export function WhyChooseUs() {
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className="text-rose-400"
                 >
                   <polyline points="16 18 22 12 16 6" className=""></polyline>
@@ -161,9 +161,9 @@ export function WhyChooseUs() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-plus"
               >
                 <path d="M5 12h14" className=""></path>
@@ -209,9 +209,9 @@ export function WhyChooseUs() {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className="lucide lucide-plus"
               >
                 <path d="M5 12h14" className=""></path>

@@ -14,8 +14,8 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import Link from "next/link";
-
 import { Roles } from "@/constants/roles";
+import { env } from "@/env";
 
 const formSchema = z.object({
   name: z.string().min(1, "This field is required"),
@@ -24,16 +24,16 @@ const formSchema = z.object({
   role: z.enum([Roles.customer, Roles.seller]),
 });
 
-
 export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-  // callbackURL: "http://localhost:3000", // development
-      callbackURL: "https://medixo-client.vercel.app", // Production
+      // callbackURL: "http://localhost:3000", // development
+      // callbackURL: "https://medixo-client.vercel.app", // Production
+      callbackURL: env.NEXT_PUBLIC_APP_URL,
     });
 
-    console.log(data);
+    // console.log(data);
   };
 
   const form = useForm({
@@ -65,7 +65,6 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
 
   return (
     <div className="py-10 relative min-h-screen flex items-center justify-center px-4 text-gray-300 overflow-hidden">
-      
       {/* Background */}
       <div className="absolute top-0 left-0 w-full h-full -z-10">
         <iframe
@@ -80,7 +79,6 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
         className="w-full max-w-md p-[1px] rounded-lg border border-white/10 bg-linear-to-b from-white/5 to-white/[0.02] shadow-2xl backdrop-blur-xl"
       >
         <div className="rounded-lg bg-black/60 px-8 py-10">
-
           {/* Header */}
           <div className="mb-8 text-center">
             <span className="inline-block mb-2 text-white text-2xl font-semibold tracking-tight">
@@ -106,7 +104,6 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
             className="space-y-5"
           >
             <FieldGroup>
-
               {/* Name */}
               <form.Field
                 name="name"
@@ -117,7 +114,7 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                     <Field>
                       <FieldLabel htmlFor={field.name}>Name</FieldLabel>
                       <Input
-                      placeholder="Enter Your Name"
+                        placeholder="Enter Your Name"
                         type="text"
                         id={field.name}
                         name={field.name}
@@ -199,12 +196,8 @@ export function RegisterForm({ ...props }: React.ComponentProps<typeof Card>) {
                         onChange={(e) => field.handleChange(e.target.value)}
                         className="w-full h-11 rounded-md border border-gray-700 bg-black/40 px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white"
                       >
-                        <option value={Roles.customer}>
-                          Customer
-                        </option>
-                        <option value={Roles.seller}>
-                          Seller
-                        </option>
+                        <option value={Roles.customer}>Customer</option>
+                        <option value={Roles.seller}>Seller</option>
                       </select>
                     </Field>
                   );

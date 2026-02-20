@@ -8,7 +8,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 
 export async function FeaturedMedicines() {
   const { data: medicines } = await adminService.getAllMedicines();
-  console.log(medicines);
+  // console.log(medicines);
 
   // Show only first 4 as featured
   const featured = medicines?.slice(0, 4) || [];

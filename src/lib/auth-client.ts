@@ -1,6 +1,8 @@
+import { env } from "@/env";
 import { createAuthClient } from "better-auth/react";
 export const authClient = createAuthClient({
   /** The base URL of the server (optional if you're using the same domain) */
-  baseURL: "https://medixo-server.vercel.app", // production
+  // baseURL: "https://medixo-server.vercel.app", // production
   // baseURL:  "http://localhost:5000", // development
+  baseURL: env.NEXT_PUBLIC_API_URL,
 });

@@ -16,7 +16,7 @@ export async function proxy(request: NextRequest) {
   }
 
   const role = data?.user.role;
-  console.log("User role", role)
+  // console.log("User role", role)
 
   // Role-based dashboard rules
   const roleRedirectMap: Record<string, string> = {
