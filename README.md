@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medixo Client
 
-## Getting Started
+Medixo Client is a modern web application built with Next.js, designed to provide a seamless user experience for medical or healthcare-related services.
 
-First, run the development server:
+🔗 **Live Demo:** [https://medixo-client.vercel.app](https://medixo-client.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project leverages a robust stack of modern technologies to ensure performance, accessibility, and developer experience.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Framework & Core
+*   **[Next.js](https://nextjs.org/)** (v16) - The React Framework for the Web.
+*   **[React](https://react.dev/)** (v19) - The library for web and native user interfaces.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Styling & UI
+*   **[Tailwind CSS](https://tailwindcss.com/)** - A utility-first CSS framework.
+*   **[Lucide React](https://lucide.dev/)** - Beautiful & consistent icons.
+*   **[Class Variance Authority (CVA)](https://cva.style/)** - For creating variant-based components.
+*   **[clsx](https://github.com/lukeed/clsx)** & **[tailwind-merge](https://github.com/dcastil/tailwind-merge)** - For conditional class merging.
 
-## Learn More
+### Components & Primitives (Radix UI)
+This project uses [Radix UI](https://www.radix-ui.com/) primitives for accessible, unstyled components.
 
-To learn more about Next.js, take a look at the following resources:
+*   `@radix-ui/react-avatar` - For user avatars.
+*   `@radix-ui/react-dialog` - For modal dialogs.
+*   `@radix-ui/react-separator` - For visual dividers.
+*   `@radix-ui/react-slot` - For component composition.
+*   `@radix-ui/react-tooltip` - For popup information.
+*   `@radix-ui/react-popover` / `@radix-ui/react-popper` - For positioning floating elements.
+*   `@radix-ui/react-portal` - For rendering outside the DOM hierarchy.
+*   `@radix-ui/react-presence` - For animation presence.
+*   `@radix-ui/react-visually-hidden` - For accessibility.
+*   `@radix-ui/react-dismissable-layer` - For handling outside clicks and escape keys.
+*   `@radix-ui/react-focus-scope` & `@radix-ui/react-focus-guards` - For focus management.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Utilities & Helpers
+*   `@floating-ui/react-dom` - For floating element positioning.
+*   `react-remove-scroll` - For locking body scroll when modals are open.
+*   `aria-hidden` - For accessibility hiding.
+*   `use-sync-external-store` - For subscribing to external stores.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Getting Started
 
-## Deploy on Vercel
+To run this project locally:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/your-username/medixo-client.git
+    cd medixo-client
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
+
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+    ```
+
+4.  Open http://localhost:3000 with your browser to see the result.
+
+👨‍💻 **Developed by:** [Shihab Uddin](https://shihab-dev.web.app/)

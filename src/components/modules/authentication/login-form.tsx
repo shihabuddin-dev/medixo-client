@@ -9,7 +9,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { env } from "@/env";
+// import { env } from "@/env";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import Link from "next/link";
@@ -22,16 +22,16 @@ const formSchema = z.object({
 });
 
 export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
-  const handleGoogleLogin = async () => {
-    const data = authClient.signIn.social({
-      provider: "google",
-      // callbackURL: "http://localhost:3000", // development
-      // callbackURL: "https://medixo-client.vercel.app", // Production
-      callbackURL: env.NEXT_PUBLIC_APP_URL,
-    });
+  // const handleGoogleLogin = async () => {
+  //   const data = authClient.signIn.social({
+  //     provider: "google",
+  //     // callbackURL: "http://localhost:3000", // development
+  //     // callbackURL: "https://medixo-client.vercel.app", // Production
+  //     callbackURL: env.NEXT_PUBLIC_APP_URL,
+  //   });
 
-    console.log(data);
-  };
+  //   console.log(data);
+  // };
 
   const form = useForm({
     defaultValues: {
@@ -162,14 +162,14 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
               Log In
             </Button>
 
-            <Button
+            {/* <Button
               onClick={() => handleGoogleLogin()}
               variant="outline"
               type="button"
               className="w-full border-white/20 text-white hover:bg-white/10"
             >
               Continue with Google
-            </Button>
+            </Button> */}
           </div>
 
           {/* Footer */}
